@@ -76,10 +76,58 @@ var projects = {
     {
         "title": "project title 2",
         "dates": "2015",
-        "description": "description project title 2"
+        "description": "description project title 2",
         "images": ["http://placekitten.com/600/100",
            "http://placekitten.com/200/200"
         ]
     }
     ]
 }
+
+
+var bioName = HTMLheaderName.replace("%data%", bio.name);
+
+$("#header").append(bioName);
+
+if (bio.skills.length > 0) {
+
+    $("#header").append(HTMLskillsStart);
+
+    var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
+    $("#skills").append(formattedSkill);
+
+    var formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
+    $("#skills").append(formattedSkill);
+
+    var formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
+    $("#skills").append(formattedSkill);
+
+}
+
+function displayWork() {
+    for (job in work.jobs) {
+
+        $("#workExperience").append(HTMLworkStart);
+
+        var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
+        var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
+        var formattedEmployerTitle = formattedEmployer + formattedTitle;
+        $(".work-entry:last").append(formattedEmployerTitle);
+
+        var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
+        $(".work-entry:last").append(formattedDates);
+
+        var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
+        $(".work-entry:last").append(formattedDescription);
+    }
+}
+
+displayWork();
+
+
+$(document).click(function(loc) {
+  var x = loc.pageX;
+  var y = loc.pageY;
+
+  logClicks(x, y);
+});
