@@ -1,25 +1,27 @@
 var bio = {
-    "name": "rob",
-    "role": "maester",
+    "name": "Erlich Bachman",
+    "role": "Chief Evangelism Officer",
     "contacts": {
         "mobile": "212-555-1212",
-        "email": "email addr",
-        "github": "github acct",
-        "twitter": "tweeter",
-        "location": "loc"
+        "email": "bachmania@aviato.com",
+        "github": "aviato_bachman",
+        "twitter": "erlichbachman",
+        "location": "Palo Alto, CA"
     },
-    "welcomeMessage":"w e l c o m e     M e s s a g e.",
+    "welcomeMessage":"I memorized the hexadecimal times tables when I was 14 writing machine code, okay? Ask me what 9 times F is. It's fleventyfive.",
     "skills": [
-        "s1","s2","s3","s4","s5"
+        "Entrepreneur","Angel Investor","Incubator Owner","Founder","Chairman"
     ],
-    "bioPic": "images/pic.jpg"
+    "bioPic": "https://pbs.twimg.com/profile_images/492003540819144704/3xKB2iDH.jpeg"   //,
+    //ADD DISPLAY FUNCTION HERE, CURRENTLY BROKEN
+
 }
 
 var education = {
     "schools": [
         {
             "name": "second school",
-            "city": "ft lauderdale, fl",
+            "location": "ft lauderdale, fl",
             "degree": "masters",
             "majors": ["CS"],
             "dates": 2013,
@@ -27,7 +29,7 @@ var education = {
         },
         {
             "name": "first school",
-            "city": "san francisco, ca",
+            "location": "san francisco, ca",
             "degree": "ba",
             "majors": ["BS"],
             "dates": 2010,
@@ -41,7 +43,8 @@ var education = {
             "dates": "masters",
             "url": "http://udacity.com"
         }
-    ]
+    ]    //,
+    //ADD DISPLAY FUNCTION
 }
 
 
@@ -50,16 +53,19 @@ var work = {
     {
         "employer": "employer1",
         "title": "title1",
+        "location": "loc1",
         "dates": "1998 - 1999",
         "description": "description 1"
     },
     {
         "employer": "employer2",
         "title": "title2",
+        "location": "loc2",
         "dates": "2001 - 2002",
         "description": "description 2"
     }
-    ]
+    ]//,
+    //ADD DISPLAY FUNCTION
 }
 
 
@@ -70,25 +76,39 @@ var projects = {
         "dates": "2014",
         "description": "description project title 1",
         "images": ["http://placekitten.com/200/300",
-           "http://placekitten.com/400/300"
-        ]
+                   "http://placekitten.com/400/300"
+                  ]
     },
     {
         "title": "project title 2",
         "dates": "2015",
         "description": "description project title 2",
         "images": ["http://placekitten.com/600/100",
-           "http://placekitten.com/200/200"
-        ]
+                   "http://placekitten.com/200/200"
+                  ]
     }
-    ]
+    ]//,
+    //ADD DISPLAY FUNCTION
 }
 
 
 var bioName = HTMLheaderName.replace("%data%", bio.name);
 
 $("#header").append(bioName);
+$("#header").append(HTMLheaderRole.replace("%data%", 'Role'));
 
+$("#header").append(HTMLcontactGeneric.replace("%contact%", 'Email'));
+
+$("#topContacts").append(HTMLmobile.replace("%data%", 'MOBILE'));
+$("#topContacts").append(HTMLemail.replace("%data%", 'EMAIL'));
+$("#topContacts").append(HTMLtwitter.replace("%data%", 'TWITTER'));
+$("#header").append(HTMLgithub.replace("%data%", 'GITHUB'));
+$("#header").append(HTMLblog.replace("%data%", 'BLOG'));
+$("#header").append(HTMLlocation.replace("%data%", 'LOCATION'));
+
+$("#header").append(HTMLbioPic.replace("%data%", 'IMG'));
+
+/*
 if (bio.skills.length > 0) {
 
     $("#header").append(HTMLskillsStart);
@@ -103,7 +123,7 @@ if (bio.skills.length > 0) {
     $("#skills").append(formattedSkill);
 
 }
-
+*/
 function displayWork() {
     for (job in work.jobs) {
 
@@ -131,3 +151,29 @@ $(document).click(function(loc) {
 
   logClicks(x, y);
 });
+
+
+projects.display = function() {
+    for (project in projects.projects) {
+        $("#projects").append(HTMLprojectStart);
+
+        var formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[project].title);
+        $(".project-entry:last").append(formattedTitle);
+
+        var formattedDates = HTMLprojectTitle.replace("%data%",projects.projects[project].dates);
+        $(".project-entry:last").append(formattedDates);
+
+        var formattedDescription = HTMLprojectTitle.replace("%data%",projects.projects[project].description);
+        $(".project-entry:last").append(formattedDescription);
+/*
+        if (projects.projects[project].images.length > 0) {
+            for (image in projects.projects[project].images) {
+                var formattedImage = HTMprojectImage.replace("%data%",projects.projects[project].images[image]);
+                $(".project-entry:last").append(formattedImage);
+            }
+        }
+*/
+    }
+}
+
+projects.display();
