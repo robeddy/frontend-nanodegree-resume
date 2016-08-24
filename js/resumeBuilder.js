@@ -12,7 +12,7 @@ var bio = {
     "skills": [
         "Entrepreneur","Angel Investor","Incubator Owner","Founder","Chairman"
     ],
-    "bioPic": "https://pbs.twimg.com/profile_images/492003540819144704/3xKB2iDH.jpeg"   //,
+    "bioPic": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/005/05a/24b/00dd9b4.jpg" //,
     //ADD DISPLAY FUNCTION HERE, CURRENTLY BROKEN
 
 }
@@ -94,19 +94,27 @@ var projects = {
 
 var bioName = HTMLheaderName.replace("%data%", bio.name);
 
-$("#header").append(bioName);
-$("#header").append(HTMLheaderRole.replace("%data%", 'Role'));
 
-$("#header").append(HTMLcontactGeneric.replace("%contact%", 'Email'));
+for(key in bio.contacts) {
+    console.log(key + '...' + bio.contacts[key]);
+    $("#topContacts").append(HTMLcontactGeneric.replace("%contact%", key).replace("%data%", bio.contacts[key]));
+};
 
-$("#topContacts").append(HTMLmobile.replace("%data%", 'MOBILE'));
-$("#topContacts").append(HTMLemail.replace("%data%", 'EMAIL'));
-$("#topContacts").append(HTMLtwitter.replace("%data%", 'TWITTER'));
-$("#header").append(HTMLgithub.replace("%data%", 'GITHUB'));
-$("#header").append(HTMLblog.replace("%data%", 'BLOG'));
-$("#header").append(HTMLlocation.replace("%data%", 'LOCATION'));
+$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+$("#header").prepend(bioName);
 
-$("#header").append(HTMLbioPic.replace("%data%", 'IMG'));
+$("#header").append(HTMLbioPic.replace("%data%", bio.bioPic));
+
+$("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+
+$("#header").append(HTMLskillsStart);
+
+bio.skills.forEach(function(entry) {
+    console.log(entry);
+    $("#header").append(HTMLskills.replace("%data%", entry));
+});
+
+
 
 /*
 if (bio.skills.length > 0) {
