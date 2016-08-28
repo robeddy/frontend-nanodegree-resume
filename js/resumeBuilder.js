@@ -12,8 +12,24 @@ var bio = {
     "skills": [
         "Entrepreneur","Angel Investor","Incubator Owner","Founder","Chairman"
     ],
-    "bioPic": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/005/05a/24b/00dd9b4.jpg" //,
-    //ADD DISPLAY FUNCTION HERE, CURRENTLY BROKEN
+    "bioPic": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/005/05a/24b/00dd9b4.jpg",
+    display: function() {
+        var bioName = HTMLheaderName.replace("%data%", bio.name);
+
+        objectLoopReplaceAppend(bio.contacts, "#topContacts", HTMLcontactGeneric, "%contact%", "%data%");
+
+        $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+        $("#header").prepend(bioName);
+        $("#header").append(HTMLbioPic.replace("%data%", bio.bioPic));
+        $("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+
+        if (bio.skills.length > 0) {
+
+            $("#header").append(HTMLskillsStart);
+            arrayLoopReplaceAppend(bio.skills, "#header", HTMLskills, "%data%");
+
+        }
+    }
 
 }
 
@@ -178,8 +194,6 @@ var projects = {
 
 }
 
-var bioName = HTMLheaderName.replace("%data%", bio.name);
-
 
 function objectLoopReplaceAppend(objectParam, selector, htmlSnippet, keyToReplace, valueToReplace) {
     for(key in objectParam) {
@@ -199,97 +213,13 @@ function arrayLoopReplaceAppend(arrayParam, selector, htmlSnippet, textToReplace
    });
 }
 
-/*
-OLD, DELETE BEFORE SUBMIT
-for(key in bio.contacts) {
-    console.log(key + '...' + bio.contacts[key]);
-    $("#topContacts").append(HTMLcontactGeneric.replace("%contact%", key).replace("%data%", bio.contacts[key]));
-};
-*/
 
-objectLoopReplaceAppend(bio.contacts, "#topContacts", HTMLcontactGeneric, "%contact%", "%data%");
-
-$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
-$("#header").prepend(bioName);
-$("#header").append(HTMLbioPic.replace("%data%", bio.bioPic));
-$("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
-
-/*
-OLD, DELETE BEFORE SUBMIT
-bio.skills.forEach(function(entry) {
-    console.log(entry);
-    $("#header").append(HTMLskills.replace("%data%", entry));
-});
-*/
-
-
-if (bio.skills.length > 0) {
-
-    $("#header").append(HTMLskillsStart);
-    arrayLoopReplaceAppend(bio.skills, "#header", HTMLskills, "%data%");
-
-}
-
-/*
-function displayWork() {
-    for (job in work.jobs) {
-
-        $("#workExperience").append(HTMLworkStart);
-
-        var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
-        var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
-        var formattedEmployerTitle = formattedEmployer + formattedTitle;
-        $(".work-entry:last").append(formattedEmployerTitle);
-
-        var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
-        $(".work-entry:last").append(formattedDates);
-
-        var formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
-        $(".work-entry:last").append(formattedLocation);
-
-        var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
-        $(".work-entry:last").append(formattedDescription);
-    }
-}
-
-*/
+bio.display();
 
 work.display();
 
-/*
-$(document).click(function(loc) {
-  var x = loc.pageX;
-  var y = loc.pageY;
-
-  logClicks(x, y);
-});
-*/
-
-
-/*
-projects.display = function() {
-    for (project in projects.projects) {
-        $("#projects").append(HTMLprojectStart);
-
-        var formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[project].title);
-        $(".project-entry:last").append(formattedTitle);
-
-        var formattedDates = HTMLprojectDates.replace("%data%",projects.projects[project].dates);
-        $(".project-entry:last").append(formattedDates);
-
-        var formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[project].description);
-        $(".project-entry:last").append(formattedDescription);
-
-        if (projects.projects[project].images.length > 0) {
-            for (image in projects.projects[project].images) {
-                var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].images[image]);
-                $(".project-entry:last").append(formattedImage);
-            }
-        }
-
-    }
-}
-*/
 projects.display();
 
 education.display();
+
+$("#mapDiv").append(googleMap);
